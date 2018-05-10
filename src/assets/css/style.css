@@ -151,22 +151,22 @@ body {
 }
 
 .health .progress-bar {
-    width: 75%;
+    width: 100%;
     background-color: #E91E63;
 }
 
 .hungry .progress-bar {
-    width: 65%;
+    width: 100%;
     background-color: #FFC107;
 }
 
 .thirsty .progress-bar {
-    width: 50%;
+    width: 100%;
     background-color: #2196F3;
 }
 
 .happy .progress-bar {
-    width: 95%;
+    width: 100%;
     background-color: #4CAF50;
 }
 
