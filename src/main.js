@@ -3,13 +3,18 @@
 import Vue from 'vue'
 import App from './App'
 import router from './router'
+import './assets/css/style.css'
 
 Vue.config.productionTip = false
 
-/* eslint-disable no-new */
 new Vue({
-  el: '#app',
-  router,
-  components: { App },
-  template: '<App/>'
-})
+    data: {
+        health: 100
+    },
+    created: function() {
+        while (this.health > 0) {
+            console.log(this.health);
+            this.health--;
+        }
+    }
+});

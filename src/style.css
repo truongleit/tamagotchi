@@ -1,0 +1,296 @@
+@import url('https://fonts.googleapis.com/css?family=Barlow:300,400,500,600,700,800,900');
+body {
+    font-family: 'Barlow', sans-serif;
+}
+
+body {
+    width: 100vw;
+    height: 100vh;
+    position: fixed;
+    margin: 0;
+    background-image: url('background.png');
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+.game-container {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(33, 150, 243, .5);
+}
+
+.above-container {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+}
+
+.below-container {
+    position: absolute;
+    width: 100%;
+    height: 28%;
+    bottom: 0;
+}
+
+.box {
+    width: 18%;
+    height: 97.2%;
+    position: absolute;
+    border-radius: 14px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+    transition: all 0.3s cubic-bezier(.25, .8, .25, 1);
+    user-select: none;
+    -moz-user-select: none;
+    -webkit-user-select: none;
+}
+
+.character-area {
+    width: 60%;
+    height: 66%;
+    top: 34%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2), 0 1px 2px rgba(0, 0, 0, .5);
+    /* background-image: url('jungle.svg'); */
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position-y: -25px;
+}
+
+.character-box {
+    background: #fff;
+    right: 0;
+    top: 1%;
+    margin-right: 12px;
+}
+
+.point-box {
+    background: rgba(255, 255, 255, .7);
+    left: 0;
+    top: 1%;
+    margin-left: 12px;
+}
+
+.your-character {
+    width: 100%;
+    height: 33%;
+}
+
+.your-character .image {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+}
+
+.your-character .image img {
+    width: 100%;
+    height: 80%;
+}
+
+.character-name {
+    font-size: 22px;
+    font-weight: 600;
+    text-align: center;
+}
+
+.character-level {
+    font-size: 18px;
+    font-weight: 400;
+    text-align: center;
+}
+
+.bar-container {
+    width: 93%;
+    height: auto;
+    margin: 0 auto;
+}
+
+.progress {
+    padding: 4px;
+    border-radius: 6px;
+    box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.25), 0 1px rgba(255, 255, 255, 0.08);
+}
+
+.health .progress {
+    background: rgba(240, 98, 146, .25);
+}
+
+.hungry .progress {
+    background: rgba(255, 213, 79, .25);
+}
+
+.thirsty .progress {
+    background: rgba(144, 202, 249, .25);
+}
+
+.happy .progress {
+    background: rgba(129, 199, 132, .25);
+}
+
+.experience .progress {
+    background: rgba(255, 241, 118, 0.25);
+}
+
+.progress-name {
+    font-size: 16px;
+    font-weight: 600;
+    margin-bottom: 3px;
+    margin-left: 5px;
+    text-transform: uppercase;
+}
+
+.progress-bar {
+    height: 20px;
+    border-radius: 4px;
+    background-image: linear-gradient(to bottom, rgba(255, 255, 255, 0.3), rgba(255, 255, 255, 0.05));
+    transition: 0.4s linear;
+    transition-property: width, background-color;
+    box-shadow: 0 0 1px 1px rgba(0, 0, 0, 0.25), inset 0 1px rgba(255, 255, 255, 0.1);
+}
+
+.health .progress-bar {
+    width: 75%;
+    background-color: #E91E63;
+}
+
+.hungry .progress-bar {
+    width: 65%;
+    background-color: #FFC107;
+}
+
+.thirsty .progress-bar {
+    width: 50%;
+    background-color: #2196F3;
+}
+
+.happy .progress-bar {
+    width: 95%;
+    background-color: #4CAF50;
+}
+
+.experience .progress-bar {
+    width: 50%;
+    background-color: #FFEB3B;
+}
+
+.character-box:hover,
+.point-box:hover {
+    box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
+}
+
+.character {
+    /* position: absolute; */
+}
+
+.character.image {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    height: 45%;
+    border-radius: 14px 14px 0px 0px;
+    background-image: url('monster-background.png');
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+.character img {
+    width: 100%;
+    height: 77%;
+}
+
+.character .name {
+    font-size: 29px;
+    font-weight: 800;
+    text-transform: uppercase;
+    text-align: center;
+}
+
+.character .content {
+    padding: 15px;
+    font-size: 16px;
+    font-weight: 400;
+    text-align: center;
+}
+
+.character.properties {
+    position: absolute;
+    bottom: 0;
+    display: flex;
+    width: 100%;
+    border-radius: 0px 0px 14px 14px;
+    overflow: hidden;
+}
+
+.character .property {
+    flex: 1;
+    background-color: #DC516F;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 15px;
+}
+
+.property:nth-child(2) {
+    border-left: 1px solid #000000;
+    border-right: 1px solid #000000;
+}
+
+.value-box {
+    text-align: center;
+}
+
+.value-box .value {
+    font-size: 26px;
+    font-weight: 700;
+}
+
+.value-box .skill {
+    font-size: 12px;
+    font-weight: 400;
+    text-transform: uppercase;
+}
+
+.item-container {
+    position: absolute;
+    left: 50%;
+    bottom: 2%;
+    transform: translateX(-50%);
+    width: 60%;
+    height: 30%;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    border-radius: 5px;
+    background: rgba(255, 255, 255, .75);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
+}
+
+.food {
+    width: 30%;
+    height: 100%;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.food .container {
+    width: 100%;
+    height: 80%;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.food-title {
+    display: flex;
+    align-items: center;
+    margin: 0 auto;
+    font-size: 23px;
+    font-weight: 700;
+}
+
+.item-box {
+    width: 32%;
+    height: 30%;
+    display: flex;
+}
