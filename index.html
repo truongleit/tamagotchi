@@ -93,98 +93,25 @@
             <div class="item-container">
                 <div class="food">
                     <div class="food-title">Food</div>
-                    <div class="container" id="example-2">
-                        <div class="item-box" v-on:click="eat">
-                            <img src="/static/fruit/Asset 2.svg" alt="fruit">
-                        </div>
-                        <div class="item-box" v-on:click="eat">
-                            <img src="/static/fruit/Asset 2.svg" alt="fruit">
-                        </div>
-                        <div class="item-box" v-on:click="eat">
-                            <img src="/static/fruit/Asset 2.svg" alt="fruit">
-                        </div>
-                        <div class="item-box" v-on:click="eat">
-                            <img src="/static/fruit/Asset 2.svg" alt="fruit">
-                        </div>
-                        <div class="item-box" v-on:click="eat">
-                            <img src="/static/fruit/Asset 2.svg" alt="fruit">
-                        </div>
-                        <div class="item-box" v-on:click="eat">
-                            <img src="/static/fruit/Asset 2.svg" alt="fruit">
-                        </div>
-                        <div class="item-box" v-on:click="eat">
-                            <img src="/static/fruit/Asset 2.svg" alt="fruit">
-                        </div>
-                        <div class="item-box" v-on:click="eat">
-                            <img src="/static/fruit/Asset 2.svg" alt="fruit">
-                        </div>
-                        <div class="item-box" v-on:click="eat">
-                            <img src="/static/fruit/Asset 2.svg" alt="fruit">
+                    <div class="container" id="food">
+                        <div class="item-box" v-on:click="eat" v-for="fruit in items">
+                            <img :src="fruit.url" :alt="fruit.name">
                         </div>
                     </div>
-
                 </div>
                 <div class="food">
                     <div class="food-title">Drink</div>
-                    <div class="container">
-                        <div class="item-box">
-                            <img src="/static/drink/Asset 1.svg" alt="drink">
-                        </div>
-                        <div class="item-box">
-                            <img src="/static/drink/Asset 1.svg" alt="drink">
-                        </div>
-                        <div class="item-box">
-                            <img src="/static/drink/Asset 1.svg" alt="drink">
-                        </div>
-                        <div class="item-box">
-                            <img src="/static/drink/Asset 1.svg" alt="drink">
-                        </div>
-                        <div class="item-box">
-                            <img src="/static/drink/Asset 1.svg" alt="drink">
-                        </div>
-                        <div class="item-box">
-                            <img src="/static/drink/Asset 1.svg" alt="drink">
-                        </div>
-                        <div class="item-box">
-                            <img src="/static/drink/Asset 1.svg" alt="drink">
-                        </div>
-                        <div class="item-box">
-                            <img src="/static/drink/Asset 1.svg" alt="drink">
-                        </div>
-                        <div class="item-box">
-                            <img src="/static/drink/Asset 1.svg" alt="drink">
+                    <div class="container" id="drink">
+                        <div class="item-box" v-on:click="drinking" v-for="drink in items">
+                            <img :src="drink.url" :alt="drink.name">
                         </div>
                     </div>
                 </div>
                 <div class="food">
                     <div class="food-title">Entertainment</div>
-                    <div class="container">
-                        <div class="item-box">
-                            <img src="/static/fruit/Asset 3.svg" alt="fruit">
-                        </div>
-                        <div class="item-box">
-                            <img src="/static/fruit/Asset 3.svg" alt="fruit">
-                        </div>
-                        <div class="item-box">
-                            <img src="/static/fruit/Asset 3.svg" alt="fruit">
-                        </div>
-                        <div class="item-box">
-                            <img src="/static/fruit/Asset 3.svg" alt="fruit">
-                        </div>
-                        <div class="item-box">
-                            <img src="/static/fruit/Asset 3.svg" alt="fruit">
-                        </div>
-                        <div class="item-box">
-                            <img src="/static/fruit/Asset 3.svg" alt="fruit">
-                        </div>
-                        <div class="item-box">
-                            <img src="/static/fruit/Asset 3.svg" alt="fruit">
-                        </div>
-                        <div class="item-box">
-                            <img src="/static/fruit/Asset 3.svg" alt="fruit">
-                        </div>
-                        <div class="item-box">
-                            <img src="/static/fruit/Asset 3.svg" alt="fruit">
+                    <div class="container" id="music">
+                        <div class="item-box" v-on:click="listening" v-for="instrument in items">
+                            <img :src="instrument.url" :alt="instrument.name">
                         </div>
                     </div>
                 </div>

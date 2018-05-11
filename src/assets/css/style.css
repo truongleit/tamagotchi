@@ -293,4 +293,25 @@ body {
     width: 32%;
     height: 30%;
     display: flex;
+    align-items: center;
+}
+
+.item-box img {
+    width: 45%;
+    margin: 0 auto;
+}
+
+#drink .item-box img {
+    width: 37%;
+    margin: 0 auto;
+}
+
+#music .item-box {
+    width: 50%;
+    height: 40%;
+}
+
+#music .item-box img {
+    width: 55%;
+    margin: 0 auto;
 }
