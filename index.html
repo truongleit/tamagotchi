@@ -105,7 +105,7 @@
 
                 </div>
                 <div class="music-instrument">
-                    <img src="/static/music/music1.svg">
+                    <img src="">
                 </div>
             </div>
             <div class="box character-box">
@@ -164,7 +164,7 @@
                     <div class="food-title">Entertainment</div>
                     <div class="container" id="music">
                         <div class="button-container" v-for="instrument in items">
-                            <Button class="item-box" v-on:click="listening(instrument.point)">
+                            <Button class="item-box" v-on:click="listening(instrument.point,instrument.class,instrument.url)">
                                 <img :src="instrument.url" :alt="instrument.name">
                             </button>
                         </div>

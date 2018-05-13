@@ -60,11 +60,60 @@ body {
 
 .music-instrument {
     display: none;
-    bottom: 6%;
-    right: 2%;
+    /* bottom: 6%;
+    right: 2%; */
     width: 21%;
     position: absolute;
+}
+
+.music-instrument.cello {
+    bottom: 6%;
+    right: 2%;
     transform: rotate(-25deg);
+}
+
+.music-instrument.accordion {
+    bottom: 5%;
+    right: 4%;
+    transform: rotate(13deg);
+}
+
+.music-instrument.trumpet {
+    bottom: 6%;
+    right: 2%;
+    transform: scaleX(-1);
+}
+
+.music-instrument.piano {
+    bottom: 3%;
+    right: 5%;
+}
+
+.music-instrument.saxophone {
+    bottom: 6%;
+    right: 2%;
+    transform: scaleX(-1);
+}
+
+.music-instrument.drum {
+    bottom: 2%;
+    right: 5%;
+}
+
+.music-instrument.guitar {
+    bottom: 6%;
+    right: 4%;
+    transform: rotate(-25deg);
+}
+
+.music-instrument.dan-nguyet {
+    bottom: 6%;
+    right: 5%;
+    transform: rotate(-20deg);
+}
+
+.music-instrument.trumpet img {
+    width: 85%;
 }
 
 .music-instrument.block {
@@ -74,12 +123,52 @@ body {
 .instrument-note {
     display: none;
     position: absolute;
-    bottom: 25%;
-    right: 22%;
+    /* bottom: 25%;
+    right: 22%; */
 }
 
 .instrument-note.block {
     display: block;
+}
+
+.instrument-note.cello {
+    bottom: 25%;
+    right: 22%;
+}
+
+.instrument-note.accordion {
+    bottom: 35%;
+    right: 16%;
+}
+
+.instrument-note.trumpet {
+    bottom: 38%;
+    right: 18%;
+}
+
+.instrument-note.piano {
+    bottom: 36%;
+    right: 17%;
+}
+
+.instrument-note.saxophone {
+    bottom: 35%;
+    right: 22%;
+}
+
+.instrument-note.drum {
+    bottom: 39%;
+    right: 20%;
+}
+
+.instrument-note.guitar {
+    bottom: 31%;
+    right: 22%;
+}
+
+.instrument-note.dan-nguyet {
+    bottom: 32%;
+    right: 22%;
 }
 
 .animation-delay-1 {

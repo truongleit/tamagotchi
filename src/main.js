@@ -8,8 +8,6 @@ import './assets/css/animate.css'
 
 Vue.config.productionTip = false
 
-var audio;
-
 var character = new Vue({
     el: '#character',
     data: {
@@ -373,52 +371,77 @@ var drinkLoading = new Vue({
 var musicLoading = new Vue({
     el: '#music',
     data: {
+        currentClass: '',
         items: [{
-                name: 'Piano',
+                name: 'Cello',
                 point: 30,
+                class: 'cello',
                 url: '/static/music/music1.svg'
             },
             {
-                name: 'Guitar',
+                name: 'Accordion',
                 point: 40,
+                class: 'accordion',
                 url: '/static/music/music2.svg'
             },
             {
-                name: 'Accordion',
+                name: 'Trumpet',
                 point: 25,
+                class: 'trumpet',
                 url: '/static/music/music3.svg'
             },
             {
-                name: 'Cello',
+                name: 'Piano',
                 point: 50,
+                class: 'piano',
                 url: '/static/music/music4.svg'
             },
             {
-                name: 'Accordion',
+                name: 'Saxophone',
                 point: 25,
+                class: 'saxophone',
                 url: '/static/music/music5.svg'
             },
             {
-                name: 'Accordion',
+                name: 'Drum',
                 point: 25,
+                class: 'drum',
                 url: '/static/music/music6.svg'
             },
             {
-                name: 'Accordion',
+                name: 'Guitar',
                 point: 25,
+                class: 'guitar',
                 url: '/static/music/music7.svg'
             },
             {
-                name: 'Accordion',
+                name: 'Dan Nguyet',
                 point: 25,
+                class: 'dan-nguyet',
                 url: '/static/music/music8.svg'
             }
         ]
     },
     methods: {
-        listening: function(point) {
-            $('.music-instrument').addClass('block animated zoomIn');
-            $('.instrument-note').addClass('block animated slideInUp');
+        listening: function(point, className, url) {
+            // Remove old position class //
+            if (this.currentClass != '') {
+                $('.music-instrument').removeClass(this.currentClass);
+                $('.music-instrument').removeClass('block animated zoomIn');
+                $('.instrument-note').removeClass(this.currentClass);
+                $('.instrument-note').removeClass('block animated slideInUp');
+                this.currentClass = className;
+                console.log(this.currentClass);
+            } else {
+                this.currentClass = className;
+                console.log(this.currentClass);
+            }
+            // Add new position class and new svg //
+            setTimeout(function() {
+                $('.music-instrument img').attr('src', url);
+                $('.music-instrument').addClass(className + ' block animated zoomIn');
+                $('.instrument-note').addClass('block animated slideInUp ' + className);
+            }, 500);
             // Calculating experience point and level up //
             var check = character.nextLevel - character.experience;
             if (point > check) {
