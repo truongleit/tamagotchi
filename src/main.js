@@ -322,7 +322,6 @@ var drinkLoading = new Vue({
     },
     methods: {
         drinking: function(point) {
-            // Calculating experience point and level up //
             var check = character.nextLevel - character.experience;
             if (point > check) {
                 character.experience = point - check;
@@ -330,12 +329,16 @@ var drinkLoading = new Vue({
                 character.level++;
                 var percent = (character.experience / character.nextLevel) * 100;
                 updateBar('experience', 100);
+                $('.firework').addClass('block');
                 $('.experience .progress-bar').addClass('no-transition');
                 updateBar('experience', 0);
                 setTimeout(function() {
                     $('.experience .progress-bar').removeClass('no-transition');
                     updateBar('experience', percent);
                 }, 250);
+                setTimeout(function() {
+                    $('.firework').removeClass('block');
+                }, 4000);
             } else {
                 character.experience += point;
                 var percent = (character.experience / character.nextLevel) * 100;
@@ -414,7 +417,8 @@ var musicLoading = new Vue({
     },
     methods: {
         listening: function(point) {
-            $('.music-instrument').addClass('animated zoomIn');
+            $('.music-instrument').addClass('block animated zoomIn');
+            $('.instrument-note').addClass('block animated slideInUp');
             // Calculating experience point and level up //
             var check = character.nextLevel - character.experience;
             if (point > check) {
@@ -423,12 +427,16 @@ var musicLoading = new Vue({
                 character.level++;
                 var percent = (character.experience / character.nextLevel) * 100;
                 updateBar('experience', 100);
+                $('.firework').addClass('block');
                 $('.experience .progress-bar').addClass('no-transition');
                 updateBar('experience', 0);
                 setTimeout(function() {
                     $('.experience .progress-bar').removeClass('no-transition');
                     updateBar('experience', percent);
                 }, 250);
+                setTimeout(function() {
+                    $('.firework').removeClass('block');
+                }, 4000);
             } else {
                 character.experience += point;
                 var percent = (character.experience / character.nextLevel) * 100;

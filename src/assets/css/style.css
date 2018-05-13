@@ -71,6 +71,64 @@ body {
     display: block;
 }
 
+.instrument-note {
+    display: none;
+    position: absolute;
+    bottom: 25%;
+    right: 22%;
+}
+
+.instrument-note.block {
+    display: block;
+}
+
+.animation-delay-1 {
+    animation-delay: 1s;
+}
+
+.animation-delay-2 {
+    animation-delay: 2s;
+}
+
+.note-amination {
+    position: absolute;
+    font-size: 20px;
+    animation-name: notes;
+    animation-duration: 2s;
+    animation-iteration-count: infinite;
+    animation-timing-function: linear;
+    opacity: 0;
+}
+
+.note-1 {
+    top: 55px;
+}
+
+.note-2 {
+    left: 40px;
+}
+
+.note-3 {
+    top: 30px;
+}
+
+.note-4 {}
+
+@keyframes notes {
+    0% {
+        font-size: 20px;
+        opacity: 0;
+    }
+    50% {
+        opacity: 1;
+    }
+    100% {
+        font-size: 30px;
+        margin-top: -150px;
+        opacity: 0;
+    }
+}
+
 .character-box {
     background: #fff;
     right: 0;
