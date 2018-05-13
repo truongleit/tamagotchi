@@ -7,8 +7,65 @@ import './assets/css/style.css'
 
 Vue.config.productionTip = false
 
+var character = new Vue({
+    el: '#character',
+    data: {
+        name: 'truongleit',
+        type: 0,
+        level: 1,
+        experience: 0,
+        nextLevel: 200,
+        url: '/static/svg/monster1.svg',
+        currentTrack: 1,
+        music: [{
+                no: 1,
+                name: 'Bike Rides',
+                url: 'static/sound/BikeRides.mp3'
+            },
+            {
+                no: 2,
+                name: 'Carefree Melody',
+                url: 'static/sound/CarefreeMelody.mp3'
+            },
+            {
+                no: 3,
+                name: 'Carefree',
+                url: 'static/sound/Carefree.mp3'
+            },
+            {
+                no: 4,
+                name: 'Claudio TheWorm',
+                url: 'static/sound/ClaudioTheWorm.mp3'
+            },
+            {
+                no: 5,
+                name: 'Dancing On Green Grass',
+                url: 'static/sound/DancingOnGreenGrass.mp3'
+            },
+            {
+                no: 6,
+                name: "Vlogger's Delight",
+                url: 'static/sound/VloggersDelight.mp3'
+            }
+        ],
+        autoPlaying: function() {
+            // playMusic(1, this.music);
+        }
+    }
+});
+
+function playMusic(no, list) {
+    for (var i = 0; i < list.length; i++) {
+        if (list[i].no == no) {
+            var audio = new Audio(list[i].url);
+            audio.play();
+        }
+    }
+}
+
 var properties = new Vue({
     data: {
+        beMonster: false,
         health: 100,
         hungry: 100,
         thirsty: 100,
@@ -16,42 +73,44 @@ var properties = new Vue({
         entertainment: 100,
         losingHealth: function() {
             var self = this;
-            setInterval(function() {
-                if (self.health > 0) {
-                    var type = 'health';
-                    self.health = self.health - 0.05;
-                    updateBar(type, self.health);
-                } else {
-                    clearInterval;
-                }
-            }, 50);
-            setInterval(function() {
-                if (self.hungry > 0) {
-                    var type = 'hunger';
-                    self.hungry = self.hungry - 0.05;
-                    updateBar(type, self.hungry);
-                } else {
-                    clearInterval;
-                }
-            }, 50);
-            setInterval(function() {
-                if (self.thirsty > 0) {
-                    var type = 'thirst';
-                    self.thirsty = self.thirsty - 0.05;
-                    updateBar(type, self.thirsty);
-                } else {
-                    clearInterval;
-                }
-            }, 50);
-            setInterval(function() {
-                if (self.happiness > 0) {
-                    var type = 'happiness';
-                    self.happiness = self.happiness - 0.05;
-                    updateBar(type, self.happiness);
-                } else {
-                    clearInterval;
-                }
-            }, 50);
+            if (this.beMonster) {
+                setInterval(function() {
+                    if (self.health > 0 && self.hungry < 80 && self.thirsty < 70) {
+                        var type = 'health';
+                        self.health = self.health - 0.25;
+                        updateBar(type, self.health);
+                    } else {
+                        clearInterval;
+                    }
+                }, 50);
+                setInterval(function() {
+                    if (self.hungry > 0) {
+                        var type = 'hunger';
+                        self.hungry = self.hungry - 0.25;
+                        updateBar(type, self.hungry);
+                    } else {
+                        clearInterval;
+                    }
+                }, 50);
+                setInterval(function() {
+                    if (self.thirsty > 0) {
+                        var type = 'thirst';
+                        self.thirsty = self.thirsty - 0.25;
+                        updateBar(type, self.thirsty);
+                    } else {
+                        clearInterval;
+                    }
+                }, 50);
+                setInterval(function() {
+                    if (self.happiness > 0) {
+                        var type = 'happiness';
+                        self.happiness = self.happiness - 0.2;
+                        updateBar(type, self.happiness);
+                    } else {
+                        clearInterval;
+                    }
+                }, 50);
+            }
         }
     }
 });
@@ -97,7 +156,31 @@ var foodLoading = new Vue({
         ]
     },
     methods: {
-        eat: function() {
+        eat: function(point) {
+            // Calculating experience point and level up //
+            var check = character.nextLevel - character.experience;
+            if (point > check) {
+                character.experience = point - check;
+                character.nextLevel += 200;
+                character.level++;
+                var percent = (character.experience / character.nextLevel) * 100;
+                updateBar('experience', 100);
+                $('.firework').addClass('block');
+                $('.experience .progress-bar').addClass('no-transition');
+                updateBar('experience', 0);
+                setTimeout(function() {
+                    $('.experience .progress-bar').removeClass('no-transition');
+                    updateBar('experience', percent);
+                }, 250);
+                setTimeout(function() {
+                    $('.firework').removeClass('block');
+                }, 4000);
+            } else {
+                character.experience += point;
+                var percent = (character.experience / character.nextLevel) * 100;
+                updateBar('experience', percent);
+            }
+            // Changing status of HUNGER bar //
             if (properties.hungry < 100) {
                 properties.hungry += 15;
                 if (properties.hungry > 100) {
@@ -107,6 +190,17 @@ var foodLoading = new Vue({
             } else if (properties.hungry > 100) {
                 properties.hungry = 100;
                 updateBar('hunger', properties.hungry);
+            }
+            // Changing status of HEALTH bar //
+            if (properties.health < 100) {
+                properties.health += 5;
+                if (properties.health > 100) {
+                    properties.health = 100;
+                }
+                updateBar('health', properties.health);
+            } else if (properties.hungry > 100) {
+                properties.health += 5;
+                updateBar('health', properties.health);
             }
         }
     }
@@ -158,7 +252,27 @@ var drinkLoading = new Vue({
         ]
     },
     methods: {
-        drinking: function() {
+        drinking: function(point) {
+            // Calculating experience point and level up //
+            var check = character.nextLevel - character.experience;
+            if (point > check) {
+                character.experience = point - check;
+                character.nextLevel += 200;
+                character.level++;
+                var percent = (character.experience / character.nextLevel) * 100;
+                updateBar('experience', 100);
+                $('.experience .progress-bar').addClass('no-transition');
+                updateBar('experience', 0);
+                setTimeout(function() {
+                    $('.experience .progress-bar').removeClass('no-transition');
+                    updateBar('experience', percent);
+                }, 250);
+            } else {
+                character.experience += point;
+                var percent = (character.experience / character.nextLevel) * 100;
+                updateBar('experience', percent);
+            }
+            // Changing status of THIRST bar //
             if (properties.thirsty < 100) {
                 properties.thirsty += 15;
                 if (properties.thirsty > 100) {
@@ -168,6 +282,17 @@ var drinkLoading = new Vue({
             } else if (properties.thirsty > 100) {
                 properties.thirsty = 100;
                 updateBar('thirst', properties.thirsty);
+            }
+            // Changing status of HEALTH bar //
+            if (properties.health < 100) {
+                properties.health += 5;
+                if (properties.health > 100) {
+                    properties.health = 100;
+                }
+                updateBar('health', properties.health);
+            } else if (properties.hungry > 100) {
+                properties.health += 5;
+                updateBar('health', properties.health);
             }
         }
     }
@@ -195,11 +320,51 @@ var musicLoading = new Vue({
                 name: 'Cello',
                 point: 50,
                 url: '/static/music/music4.svg'
+            },
+            {
+                name: 'Accordion',
+                point: 25,
+                url: '/static/music/music5.svg'
+            },
+            {
+                name: 'Accordion',
+                point: 25,
+                url: '/static/music/music6.svg'
+            },
+            {
+                name: 'Accordion',
+                point: 25,
+                url: '/static/music/music7.svg'
+            },
+            {
+                name: 'Accordion',
+                point: 25,
+                url: '/static/music/music8.svg'
             }
         ]
     },
     methods: {
-        listening: function() {
+        listening: function(point) {
+            // Calculating experience point and level up //
+            var check = character.nextLevel - character.experience;
+            if (point > check) {
+                character.experience = point - check;
+                character.nextLevel += 200;
+                character.level++;
+                var percent = (character.experience / character.nextLevel) * 100;
+                updateBar('experience', 100);
+                $('.experience .progress-bar').addClass('no-transition');
+                updateBar('experience', 0);
+                setTimeout(function() {
+                    $('.experience .progress-bar').removeClass('no-transition');
+                    updateBar('experience', percent);
+                }, 250);
+            } else {
+                character.experience += point;
+                var percent = (character.experience / character.nextLevel) * 100;
+                updateBar('experience', percent);
+            }
+            // Changing status of HAPPINESS bar //
             if (properties.happiness < 100) {
                 properties.happiness += 15;
                 if (properties.happiness > 100) {
@@ -235,3 +400,4 @@ function updateBar(type, percent) {
 };
 
 properties.losingHealth();
+character.autoPlaying();

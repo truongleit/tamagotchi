@@ -11,18 +11,22 @@
 <body>
     <div class="game-container">
         <div class="above-container">
-            <div class="box point-box">
+            <div id="character" class="box point-box">
                 <div class="your-character">
+                    <div class="firework">
+                        <div class="before"></div>
+                        <div class="after"></div>
+                    </div>
                     <div class="image">
-                        <img src="/static/svg/monster1.svg" alt="Monster 1">
+                        <img :src="url" alt="Monster 1">
                     </div>
                 </div>
                 <div class="character-information">
                     <div class="character-name">
-                        truongleit
+                        {{ name }}
                     </div>
                     <div class="character-level">
-                        <span>Lvl. </span> <span>10</span>
+                        <span>Lvl. </span> <span>{{ level }}</span>
                     </div>
                 </div>
                 <div class="bar-container">
@@ -53,7 +57,23 @@
                     <div class="experience">
                         <div class="progress-name">Experience</div>
                         <div class="progress">
+                            <div class="exp-point">{{experience}}/{{nextLevel}}</div>
                             <div class="progress-bar"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="audio-player">
+                    <div class="control-button">
+                        <div class="play-pause">
+                            <div class="previous-button">
+                                <img src="/static/icon/next-button.svg">
+                            </div>
+                            <div class="play-button">
+                                <img src="/static/icon/play-button.svg">
+                            </div>
+                            <div class="next-button">
+                                <img src="/static/icon/next-button.svg">
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -94,24 +114,30 @@
                 <div class="food">
                     <div class="food-title">Food</div>
                     <div class="container" id="food">
-                        <div class="item-box" v-on:click="eat" v-for="fruit in items">
-                            <img :src="fruit.url" :alt="fruit.name">
+                        <div class="button-container" v-for="fruit in items">
+                            <button class="item-box" v-on:click="eat(fruit.point)">
+                                <img :src="fruit.url" :alt="fruit.name">
+                            </button>
                         </div>
                     </div>
                 </div>
                 <div class="food">
                     <div class="food-title">Drink</div>
                     <div class="container" id="drink">
-                        <div class="item-box" v-on:click="drinking" v-for="drink in items">
-                            <img :src="drink.url" :alt="drink.name">
+                        <div class="button-container" v-for="drink in items">
+                            <button class="item-box" v-on:click="drinking(drink.point)">
+                                <img :src="drink.url" :alt="drink.name">
+                            </button>
                         </div>
                     </div>
                 </div>
                 <div class="food">
                     <div class="food-title">Entertainment</div>
                     <div class="container" id="music">
-                        <div class="item-box" v-on:click="listening" v-for="instrument in items">
-                            <img :src="instrument.url" :alt="instrument.name">
+                        <div class="button-container" v-for="instrument in items">
+                            <Button class="item-box" v-on:click="listening(instrument.point)">
+                                <img :src="instrument.url" :alt="instrument.name">
+                            </button>
                         </div>
                     </div>
                 </div>
