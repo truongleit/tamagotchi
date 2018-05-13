@@ -4,8 +4,11 @@ import Vue from 'vue'
 import App from './App'
 import router from './router'
 import './assets/css/style.css'
+import './assets/css/animate.css'
 
 Vue.config.productionTip = false
+
+var audio;
 
 var character = new Vue({
     el: '#character',
@@ -15,8 +18,12 @@ var character = new Vue({
         level: 1,
         experience: 0,
         nextLevel: 200,
-        url: '/static/svg/monster1.svg',
+        url: '/static/svg/monster2.svg',
         currentTrack: 1,
+        currentTrackName: 'Music',
+        currentIcon: '/static/icon/play-button.svg',
+        currentURL: 'static/sound/BikeRides.mp3',
+        isPlaying: false,
         music: [{
                 no: 1,
                 name: 'Bike Rides',
@@ -34,7 +41,7 @@ var character = new Vue({
             },
             {
                 no: 4,
-                name: 'Claudio TheWorm',
+                name: 'Claudio The Worm',
                 url: 'static/sound/ClaudioTheWorm.mp3'
             },
             {
@@ -49,16 +56,78 @@ var character = new Vue({
             }
         ],
         autoPlaying: function() {
-            // playMusic(1, this.music);
+            playMusic(this.currentTrack, this.music);
+            this.currentTrackName = getTrackName(this.currentTrack, this.music);
+        },
+        musicEnd: function() {
+            var self = this;
+            $('.player').bind("ended", function() {
+                self.nextMusic();
+            });
+        }
+    },
+    methods: {
+        stopMusic: function() {
+            if (!this.isPlaying) {
+                this.isPlaying = true;
+                $('.player')[0].play();
+                this.currentTrackName = getTrackName(this.currentTrack, this.music);
+                $('.play-button img').addClass('is-paused');
+                this.currentIcon = '/static/icon/pause-button.svg';
+            } else if (this.isPlaying) {
+                this.isPlaying = false;
+                $('.player')[0].pause();
+                $('.play-button img').removeClass('is-paused');
+                this.currentIcon = '/static/icon/play-button.svg';
+            } else {
+                this.isPlaying = true;
+                $('.player')[0].play();
+                $('.play-button img').addClass('is-paused');
+                this.currentIcon = '/static/icon/pause-button.svg';
+            }
+        },
+        nextMusic: function() {
+            if (this.currentTrack < 6) {
+                $('.player').attr('autoplay', 'autoplay');
+                $('.player')[0].pause();
+                this.currentTrack++;
+                this.currentTrackName = getTrackName(this.currentTrack, this.music);
+                this.currentURL = getTrackURL(this.currentTrack, this.music);
+                $('.player')[0].play();
+            } else {
+                $('.player').attr('autoplay', 'autoplay');
+                $('.player')[0].pause();
+                this.currentTrack = 1;
+                this.currentTrackName = getTrackName(this.currentTrack, this.music);
+                this.currentURL = getTrackURL(this.currentTrack, this.music);
+                $('.player')[0].play();
+            }
+        },
+        previousMusic: function() {
+            if (this.currentTrack > 1) {
+                $('.player').attr('autoplay', 'autoplay');
+                $('.player')[0].pause();
+                this.currentTrack--;
+                this.currentTrackName = getTrackName(this.currentTrack, this.music);
+                this.currentURL = getTrackURL(this.currentTrack, this.music);
+                $('.player')[0].play();
+            }
         }
     }
 });
 
-function playMusic(no, list) {
+function getTrackName(no, list) {
     for (var i = 0; i < list.length; i++) {
         if (list[i].no == no) {
-            var audio = new Audio(list[i].url);
-            audio.play();
+            return list[i].name;
+        }
+    }
+}
+
+function getTrackURL(no, list) {
+    for (var i = 0; i < list.length; i++) {
+        if (list[i].no == no) {
+            return list[i].url;
         }
     }
 }
@@ -345,6 +414,7 @@ var musicLoading = new Vue({
     },
     methods: {
         listening: function(point) {
+            $('.music-instrument').addClass('animated zoomIn');
             // Calculating experience point and level up //
             var check = character.nextLevel - character.experience;
             if (point > check) {
@@ -400,4 +470,8 @@ function updateBar(type, percent) {
 };
 
 properties.losingHealth();
-character.autoPlaying();
+$('img').on('dragstart', function(event) {
+    event.preventDefault();
+});
+character.musicEnd();
+// character.autoPlaying();
