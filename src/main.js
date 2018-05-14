@@ -376,54 +376,62 @@ var musicLoading = new Vue({
                 name: 'Cello',
                 point: 30,
                 class: 'cello',
+                audio: '/static/instrument/cello.mp3',
                 url: '/static/music/music1.svg'
             },
             {
                 name: 'Accordion',
                 point: 40,
                 class: 'accordion',
+                audio: '/static/instrument/accordion.mp3',
                 url: '/static/music/music2.svg'
             },
             {
                 name: 'Trumpet',
                 point: 25,
                 class: 'trumpet',
+                audio: '/static/instrument/trumpet.mp3',
                 url: '/static/music/music3.svg'
             },
             {
                 name: 'Piano',
                 point: 50,
                 class: 'piano',
+                audio: '/static/instrument/piano.mp3',
                 url: '/static/music/music4.svg'
             },
             {
                 name: 'Saxophone',
                 point: 25,
                 class: 'saxophone',
+                audio: '/static/instrument/saxophone.mp3',
                 url: '/static/music/music5.svg'
             },
             {
                 name: 'Drum',
                 point: 25,
                 class: 'drum',
+                audio: '/static/instrument/drum.mp3',
                 url: '/static/music/music6.svg'
             },
             {
                 name: 'Guitar',
                 point: 25,
                 class: 'guitar',
+                audio: '/static/instrument/guitar.mp3',
                 url: '/static/music/music7.svg'
             },
             {
                 name: 'Dan Nguyet',
                 point: 25,
                 class: 'dan-nguyet',
+                audio: '/static/instrument/dan-nguyet.mp3',
                 url: '/static/music/music8.svg'
             }
         ]
     },
     methods: {
-        listening: function(point, className, url) {
+        listening: function(point, className, url, audio) {
             // Remove old position class //
             if (this.currentClass != '') {
                 var oldClass = this.currentClass;
@@ -431,7 +439,6 @@ var musicLoading = new Vue({
                 setTimeout(function() {
                     $('.music-instrument').removeClass('zoomOut');
                     $('.instrument-note').removeClass('zoomOut');
-                    console.log(this.currentClass);
                     $('.music-instrument').removeClass(oldClass);
                     $('.music-instrument').removeClass('block animated zoomIn');
                     $('.instrument-note').removeClass(oldClass);
@@ -446,6 +453,10 @@ var musicLoading = new Vue({
                 $('.music-instrument img').attr('src', url);
                 $('.music-instrument').addClass(className + ' block animated zoomIn');
                 $('.instrument-note').addClass('block ' + className);
+                $('.instrument-audio').attr({
+                    src: audio,
+                    autoplay: 'autoplay'
+                });
             }, 500);
             // Calculating experience point and level up //
             var check = character.nextLevel - character.experience;
@@ -481,7 +492,18 @@ var musicLoading = new Vue({
                 properties.happiness = 100;
                 updateBar('happiness', properties.happiness);
             }
-        }
+        },
+        instrumentEnd: function() {
+            $('.instrument-audio').bind("ended", function() {
+                this.currentClass = '';
+                $('.music-instrument').addClass('zoomOut');
+                $('.instrument-note').removeClass('block');
+                setTimeout(function() {
+                    $('.music-instrument').attr('class', '').addClass('music-instrument');
+                    $('.instrument-note').attr('class', '').addClass('instrument-note');
+                }, 500);
+            });
+        },
     }
 });
 
@@ -510,4 +532,4 @@ $('img').on('dragstart', function(event) {
     event.preventDefault();
 });
 character.musicEnd();
-// character.autoPlaying();
+musicLoading.instrumentEnd();

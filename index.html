@@ -89,6 +89,7 @@
                 </div>
             </div>
             <div class="box character-area">
+                <audio class="instrument-audio" preload="auto" controls></audio>
                 <div class="instrument-note">
                     <div class="note-1 note-animation">
                         &#9835;
@@ -164,7 +165,7 @@
                     <div class="food-title">Entertainment</div>
                     <div class="container" id="music">
                         <div class="button-container" v-for="instrument in items">
-                            <Button class="item-box" v-on:click="listening(instrument.point,instrument.class,instrument.url)">
+                            <Button class="item-box" v-on:click="listening(instrument.point,instrument.class,instrument.url,instrument.audio)">
                                 <img :src="instrument.url" :alt="instrument.name">
                             </button>
                         </div>

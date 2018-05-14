@@ -58,6 +58,10 @@ body {
     background-size: cover;
 }
 
+.instrument-audio {
+    display: none;
+}
+
 .music-instrument {
     display: none;
     /* bottom: 6%;
