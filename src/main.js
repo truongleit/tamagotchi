@@ -426,21 +426,26 @@ var musicLoading = new Vue({
         listening: function(point, className, url) {
             // Remove old position class //
             if (this.currentClass != '') {
-                $('.music-instrument').removeClass(this.currentClass);
-                $('.music-instrument').removeClass('block animated zoomIn');
-                $('.instrument-note').removeClass(this.currentClass);
-                $('.instrument-note').removeClass('block animated slideInUp');
+                var oldClass = this.currentClass;
+                $('.music-instrument').addClass('zoomOut');
+                setTimeout(function() {
+                    $('.music-instrument').removeClass('zoomOut');
+                    $('.instrument-note').removeClass('zoomOut');
+                    console.log(this.currentClass);
+                    $('.music-instrument').removeClass(oldClass);
+                    $('.music-instrument').removeClass('block animated zoomIn');
+                    $('.instrument-note').removeClass(oldClass);
+                    $('.instrument-note').removeClass('block');
+                }, 500);
                 this.currentClass = className;
-                console.log(this.currentClass);
             } else {
                 this.currentClass = className;
-                console.log(this.currentClass);
             }
             // Add new position class and new svg //
             setTimeout(function() {
                 $('.music-instrument img').attr('src', url);
                 $('.music-instrument').addClass(className + ' block animated zoomIn');
-                $('.instrument-note').addClass('block animated slideInUp ' + className);
+                $('.instrument-note').addClass('block ' + className);
             }, 500);
             // Calculating experience point and level up //
             var check = character.nextLevel - character.experience;

@@ -123,8 +123,7 @@ body {
 .instrument-note {
     display: none;
     position: absolute;
-    /* bottom: 25%;
-    right: 22%; */
+    transition: 0.5s ease-in;
 }
 
 .instrument-note.block {
@@ -179,7 +178,7 @@ body {
     animation-delay: 2s;
 }
 
-.note-amination {
+.note-animation {
     position: absolute;
     font-size: 20px;
     animation-name: notes;
