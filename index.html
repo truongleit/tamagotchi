@@ -145,6 +145,7 @@
                     <div class="food-title">Food</div>
                     <div class="container" id="food">
                         <div class="button-container" v-for="fruit in items">
+                            <div class="item-point">{{fruit.point}}</div>
                             <button class="item-box" v-on:click="eat(fruit.point)">
                                 <img :src="fruit.url" :alt="fruit.name">
                             </button>
