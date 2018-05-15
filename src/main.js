@@ -145,9 +145,7 @@ var properties = new Vue({
             if (this.beMonster) {
                 var health = setInterval(function() {
                     if (self.health > 0 && self.hungry < 80 && self.thirsty < 70) {
-                        if (self.intervalID.length == 0) {
-                            self.intervalID[0] = health;
-                        }
+                        self.intervalID[0] = health;
                         var type = 'health';
                         self.health = self.health - 0.25;
                         updateBar(type, self.health);
@@ -157,9 +155,7 @@ var properties = new Vue({
                 }, 50);
                 var hunger = setInterval(function() {
                     if (self.hungry > 0) {
-                        if (self.intervalID.length == 1) {
-                            self.intervalID[1] = hunger;
-                        }
+                        self.intervalID[1] = hunger;
                         var type = 'hunger';
                         self.hungry = self.hungry - 0.25;
                         updateBar(type, self.hungry);
@@ -169,9 +165,7 @@ var properties = new Vue({
                 }, 50);
                 var thirst = setInterval(function() {
                     if (self.thirsty > 0) {
-                        if (self.intervalID.length == 2) {
-                            self.intervalID[2] = thirst;
-                        }
+                        self.intervalID[2] = thirst;
                         var type = 'thirst';
                         self.thirsty = self.thirsty - 0.25;
                         updateBar(type, self.thirsty);
@@ -181,9 +175,7 @@ var properties = new Vue({
                 }, 50);
                 var happiness = setInterval(function() {
                     if (self.happiness > 0) {
-                        if (self.intervalID.length == 3) {
-                            self.intervalID[3] = happiness;
-                        }
+                        self.intervalID[3] = happiness;
                         var type = 'happiness';
                         self.happiness = self.happiness - 0.2;
                         updateBar(type, self.happiness);
@@ -449,6 +441,7 @@ var musicLoading = new Vue({
     },
     methods: {
         listening: function(point, className, url, audio) {
+            clearInterval(properties.intervalID[3]);
             if (!this.inProgress) {
                 this.inProgress = true;
                 // Stop the background music if it's playing //
@@ -535,6 +528,16 @@ var musicLoading = new Vue({
                     $('.music-instrument').attr('class', '').addClass('music-instrument');
                     $('.instrument-note').attr('class', '').addClass('instrument-note');
                 }, 500);
+                var happiness = setInterval(function() {
+                    if (properties.happiness > 0) {
+                        properties.intervalID[3] = happiness;
+                        var type = 'happiness';
+                        properties.happiness = properties.happiness - 0.2;
+                        updateBar(type, properties.happiness);
+                    } else {
+                        clearInterval;
+                    }
+                }, 50);
             });
         },
     }
