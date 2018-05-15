@@ -145,7 +145,7 @@
                     <div class="food-title">Food</div>
                     <div class="container" id="food">
                         <div class="button-container" v-for="fruit in items">
-                            <div class="item-point">{{fruit.point}}</div>
+                            <div class="item-point">{{fruit.point}}p</div>
                             <button class="item-box" v-on:click="eat(fruit.point)">
                                 <img :src="fruit.url" :alt="fruit.name">
                             </button>
@@ -156,6 +156,7 @@
                     <div class="food-title">Drink</div>
                     <div class="container" id="drink">
                         <div class="button-container" v-for="drink in items">
+                            <div class="item-point">{{drink.point}}p</div>
                             <button class="item-box" v-on:click="drinking(drink.point)">
                                 <img :src="drink.url" :alt="drink.name">
                             </button>
@@ -166,7 +167,8 @@
                     <div class="food-title">Entertainment</div>
                     <div class="container" id="music">
                         <div class="button-container" v-for="instrument in items">
-                            <Button class="item-box" v-on:click="listening(instrument.point,instrument.class,instrument.url,instrument.audio)">
+                            <div class="item-point">{{instrument.point}}p</div>
+                            <button class="item-box" v-on:click="listening(instrument.point,instrument.class,instrument.url,instrument.audio)">
                                 <img :src="instrument.url" :alt="instrument.name">
                             </button>
                         </div>
