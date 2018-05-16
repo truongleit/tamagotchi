@@ -133,7 +133,7 @@ function getTrackURL(no, list) {
 
 var properties = new Vue({
     data: {
-        beMonster: true,
+        beMonster: false,
         health: 100,
         hungry: 100,
         thirsty: 100,
